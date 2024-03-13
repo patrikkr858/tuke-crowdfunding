@@ -1,0 +1,98 @@
+.help-text{
+    font-size: 45px;
+}
+
+.categories-box{
+    background-color: #A29061;
+    color: white;
+}
+
+#categories-box-title{
+    font-size: 45px;
+}
+
+#categories-box-category{
+    font-size: 25px;
+    font-weight: 400;
+    text-decoration: none;
+    color: white;
+}
+
+.reveal{
+    position: relative;
+    transform: translateY(150px);
+    opacity: 0;
+    transition: 1s all ease;
+}
+
+.reveal.active{
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.progress-bar{
+    border-radius: 5px;
+    color: #A29061;
+}
+
+.progress-bar-finished{
+    border-radius: 5px;
+    color: #61A273;
+}
+
+#card-title{
+    font-weight: 500;
+    text-align: center;
+}
+
+#card-money{
+    font-weight: 500;
+}
+
+#card-text{
+    opacity: 50%;
+    font-size: 13px;
+}
+
+.section-title{
+    font-size: 45px !important;
+    text-align: center;
+}
+
+#carousel-container{
+    max-width: 900px;
+}
+
+#slide-title{
+    color: white;
+    font-size: 70px;
+    line-height: 1.1;
+}
+
+#slide-description{
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+@media only screen and (max-width: 820px) {
+    #slide-title{
+        font-size: 50px;
+    }
+
+    #slide-description{
+        font-size: 18px;
+    }
+
+    #categories-box-title{
+        font-size: 30px;
+    }
+
+    #categories-box-category{
+        font-size: 20px;
+    }
+
+    .help-text{
+        font-size: 35px;
+    }
+}

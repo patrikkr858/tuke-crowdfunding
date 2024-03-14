@@ -13,16 +13,107 @@
           <router-link to="/" class="mr-10">Domov</router-link>
           <router-link to="/projects" class="mr-10">Projekty</router-link>
           <router-link to="/" class="mr-10">O nás</router-link>
-          <router-link to="/login">Prihlásenie</router-link>
+          <router-link v-show="loggedIn" to="/login">Prihlásenie</router-link>
         </v-toolbar-items>
       </div>
 
       <div class="hidden-sm-and-down mr-11" v-if="user">
-        <v-btn class="button-primary" @click="signOutUser" dark>Odhlásiť sa</v-btn>
+        <v-row justify="center">
+          <v-menu
+            min-width="200px"
+            rounded
+          >
+            <template v-slot:activator="{ props }">
+              <v-btn
+                icon
+                v-bind="props"
+              >
+                <v-avatar
+                  color="#A29061"
+                  size="large"
+                >
+                  <span class="text-h7">{{ this.userInitials }}</span>
+                </v-avatar>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-text>
+                <div class="mx-auto text-center">
+                  <h3>{{ user.displayName }}</h3>
+                  <p class="text-caption mt-1">
+                    {{ user.email }}
+                  </p>
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn
+                    variant="text"
+                    rounded
+                  >
+                    Môj profil
+                  </v-btn>
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn 
+                    variant="text"
+                    rounded 
+                    @click="signOutUser" 
+                    dark
+                  >
+                    Odhlásiť sa
+                  </v-btn>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-menu>
+        </v-row>
+        
       </div>
 
       <div class="ml-auto mr-11 hidden-md-and-up" id="logo-title">
-        <v-app-bar-nav-icon size="x-large" @click.stop="drawer = !drawer" @click="clickToggle(clicked)"> </v-app-bar-nav-icon>
+        <v-row justify="center">
+          <v-menu
+            width="100vw"
+            height="100vh"
+            class="pt-2 mt-2"
+            rounded
+          >
+            <template v-slot:activator="{ props }">
+              <v-btn
+                icon
+                v-bind="props"
+              >
+                <v-app-bar-nav-icon > </v-app-bar-nav-icon>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-text>
+                <div class="mx-auto text-center">
+                  <h3>{{ user.displayName }}</h3>
+                  <p class="text-caption mt-1">
+                    {{ user.email }}
+                  </p>
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn
+                    variant="text"
+                    rounded
+                  >
+                    Môj profil
+                  </v-btn>
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn 
+                    variant="text"
+                    rounded 
+                    @click="signOutUser" 
+                    dark
+                  >
+                    Odhlásiť sa
+                  </v-btn>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-menu>
+        </v-row>
+
+        
+        
       </div>
       
     </v-toolbar>
@@ -30,6 +121,7 @@
 
   <router-view/>
 
+  
   <v-card :class="clicked ? '' : 'd-none'">
     <v-layout>
       <v-navigation-drawer
@@ -57,7 +149,7 @@
 </template>
 
 <script>
-import { getAuth, signOut } from 'firebase/auth'
+import { getAuth, signOut, onAuthStateChanged } from 'firebase/auth'
 import { useAuthState } from './firebase'
 import { useRouter } from 'vue-router'
 
@@ -68,6 +160,8 @@ export default{
     return{
       drawer: null,
       clicked: false,
+      loggedIn: true,
+      userInitials: '',
     }
   },
   mounted() {
@@ -78,10 +172,25 @@ export default{
     link.rel = 'icon'
     link.href = require('@/assets/img/tuke-logo.png')
     document.getElementsByTagName('head')[0].appendChild(link)
+
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.loggedIn = false
+        this.setUserInitials(user)
+      } else {
+        this.loggedIn = true
+      }
+    })
   },
   methods: {
     clickToggle() {
       this.clicked = !this.clicked
+    },
+    setUserInitials(user) {
+      const nameParts = user.displayName.split(' ');
+      const initials = nameParts.map(part => part[0]).join('');
+      this.userInitials = initials.toUpperCase();
     },
   },
   setup () {

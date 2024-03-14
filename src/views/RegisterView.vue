@@ -1,19 +1,19 @@
 <template>
   <v-container align="center" class="ma-auto">
     <v-card 
-      class="mx-auto pa-10"
+      class="mx-auto"
       elevation="0"
-      max-width="500"
+      max-width="600"
       rounded="lg"
     >
       <v-row justify="center" class="mb-5">
         <h1 id="login-title">Registrácia</h1>
       </v-row>
 
-      <v-container >
+      
         <v-form @submit.prevent="handleSubmit" v-model="valid" >
 
-          <div class="d-none mb-10" >
+          <!-- <div class="d-none mb-10" >
             <v-btn :id="toggled ? 'unclicked-btn' : 'clicked-btn'" class="mr-10 pr-5 pl-5" @click="toggle">Som študent</v-btn>
             <v-btn :id="toggled ? 'clicked-btn' : 'unclicked-btn'" class="pr-5 pl-5" @click="toggle">Som zamestnanec</v-btn>
           </div>
@@ -21,13 +21,24 @@
           <div class="mb-10">
             <v-btn :id="toggled ? 'unclicked-btn' : 'clicked-btn'" class="mr-10 pr-5 pl-5" @click="toggle">Som študent</v-btn>
             <v-btn :id="toggled ? 'clicked-btn' : 'unclicked-btn'" class="pr-5 pl-5" @click="toggle">Som zamestnanec</v-btn>
-          </div>
+          </div> -->
 
           <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Meno</div>
           <v-text-field
-            v-model="name"
+            v-model="firstname"
             :rules="nameRules"
-            label="Zadajte vaše meno"
+            label="Zadajte meno"
+            hide-details
+            required
+            prepend-inner-icon="mdi-format-letter-case"
+            class="mb-10"
+          ></v-text-field>
+
+          <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Priezvisko</div>
+          <v-text-field
+            v-model="lastname"
+            :rules="nameRules"
+            label="Zadajte priezvisko"
             hide-details
             required
             prepend-inner-icon="mdi-format-letter-case"
@@ -45,13 +56,25 @@
             class="mb-10"
           ></v-text-field>
           
-
           <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Heslo</div>
           <v-text-field
             v-model="password"
             :rules="passwordRules"
             label="Zadajte heslo"
-            hint="At least 5 characters"
+            hint="Heslo musí mať minimálne 10 znakov."
+            :type="show1 ? 'text' : 'password'"
+            hide-details
+            required
+            prepend-inner-icon="mdi-lock-outline"
+            class="mb-10"
+          ></v-text-field>
+
+          <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Potvrdenie hesla</div>
+          <v-text-field
+            v-model="passwordConfirm"
+            :rules="confirmPasswordRules"
+            label="Zadajte heslo znova"
+            hint="Heslá sa musia zhodovať"
             :type="show1 ? 'text' : 'password'"
             hide-details
             required
@@ -60,14 +83,16 @@
           ></v-text-field>
 
           <div class="d-flex mb-10">
-            <p>Už u nás máte účet? <router-link id="register" to="/login">Prihláste sa.</router-link></p>
+            <p>Už u nás máte účet? <router-link class="font-weight-bold" id="register" to="/login">Prihláste sa.</router-link></p>
           </div>
           <v-btn size="large" id="login-btn" type="submit">R E G I S T R O V A Ť</v-btn>
           
         </v-form>
-      </v-container>
+      
     </v-card>
   </v-container>
+
+  <FooterComponent class="mt-8"></FooterComponent>
 </template>
   
 <style>
@@ -84,49 +109,68 @@
 
 #login-title{
   color: #A29061;
-  font-size: 40px;
+  font-size: 3.5em;
+}
+
+p{
+  font-size: 1em;
 }
 
 #register{
   color: #A29061;
-  font-size: 18px;
+  font-size: 1em;
   font-weight: 500;
 }
 
 #login-btn{
   background-color: #A29061;
   color: white;
-  font-weight: 500;
+  font-weight: bold;
 }
 </style>
 
 <script>
 import { ref } from 'vue';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useRouter } from 'vue-router'
+import FooterComponent from '@/components/FooterComponent.vue'
 
 export default {
+  components: {
+    FooterComponent,
+  },
   setup() {
-    const name = ref('')
+    const firstname = ref('')
+    const lastname = ref('')
     const email = ref('');
     const password = ref('');
+    const passwordConfirm = ref('');
     const auth = getAuth();
     const router = useRouter();
     const toggled = ref(false)
 
     const emailRules = [
-      v => !!v || 'E-mail is required.',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid.',
+      v => !!v || 'E-mail je povinný',
+      v => /.+@.+\..+/.test(v) || 'E-mail musí byť zadaný v správnom tvare.',
     ];
 
     const passwordRules = [
-      v => !!v || 'Password is required.',
-      v => (v && v.length >= 5) || 'Password must be at least 5 characters.',
+      v => !!v || 'Heslo je povinné.',
+      v => (v && v.length >= 10) || 'Heslo musí mať aspoň 10 znakov',
+    ];
+
+    const confirmPasswordRules = [
+        v => !!v || 'Heslá sa musia zhodovať.',
+        v => v === password.value || 'Heslá sa nezhodujú.',
     ];
 
     const handleSubmit = async () => {
       try {
-        await createUserWithEmailAndPassword(auth, email.value, password.value);
+        const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+        const user = userCredential.user
+        await updateProfile(user, {
+          displayName: `${firstname.value} ${lastname.value}`,
+        });
         router.push('/');
       } catch (e) {
         alert(e.message);
@@ -138,11 +182,14 @@ export default {
     };
 
     return {
-      name,
+      firstname,
+      lastname,
       email,
       password,
+      passwordConfirm,
       emailRules,
       passwordRules,
+      confirmPasswordRules,
       handleSubmit,
       toggle,
       toggled

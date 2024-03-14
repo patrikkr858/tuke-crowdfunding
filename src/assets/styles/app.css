@@ -28,5 +28,4 @@ header{
 
 .header-text a:hover{
   color: #A29061;
-  border-bottom: .0625rem /* 1/16 */ solid #A29061;
 }

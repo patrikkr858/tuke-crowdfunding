@@ -1,16 +1,15 @@
 <template>
   <v-container align="center" class="my-auto">
-    <v-card 
-      class="pa-10"
+    <v-card
       elevation="0"
-      max-width="500"
+      max-width="600"
       rounded="lg"
     >
       <v-row justify="center" class="mb-5">
         <h1 id="login-title">Prihlásenie</h1>
       </v-row>
 
-      <v-container >
+      
         <v-form @submit.prevent="handleSubmit" v-model="valid" >
 
           <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">E-mail</div>
@@ -37,45 +36,34 @@
             class="mb-5"
           ></v-text-field>
 
+          <div class="d-flex mb-5">
+            <p><router-link class="font-weight-bold" id="register" to="/login">Zabudli ste heslo?</router-link></p>
+          </div>
+
           <div class="d-flex mb-10">
-            <p>Ešte u nás nemáte účet? <router-link id="register" to="/register">Registrujte sa tu.</router-link></p>
+            <p>Ešte u nás nemáte účet? <router-link class="font-weight-bold" id="register" to="/register">Registrujte sa.</router-link></p>
           </div>
 
           <v-btn size="large" id="login-btn" type="submit">P r i h l á s i ť</v-btn>
           
         </v-form>
-      </v-container>
     </v-card>
   </v-container>
+
+  <FooterComponent class="mt-8"></FooterComponent>
 </template>
 
-<style>
-
-
-#login-title{
-  color: #A29061;
-  font-size: 40px;
-}
-
-#register{
-  color: #A29061;
-  font-size: 18px;
-  font-weight: 500;
-}
-
-#login-btn{
-  background-color: #A29061;
-  color: white;
-  font-weight: 500;
-}
-</style>
 
 <script>
 import { ref } from 'vue';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'vue-router';
+import FooterComponent from '@/components/FooterComponent.vue'
 
 export default {
+  components: {
+    FooterComponent,
+  },
   setup() {
     const email = ref('');
     const password = ref('');
@@ -83,13 +71,13 @@ export default {
     const router = useRouter();
 
     const emailRules = [
-      v => !!v || 'E-mail is required.',
-      v => /.+@.+\..+/.test(v) || 'E-mail must be valid.',
+      v => !!v || 'E-mail je povinný',
+      v => /.+@.+\..+/.test(v) || 'E-mail musí byť zadaný v správnom tvare.',
     ];
 
     const passwordRules = [
-      v => !!v || 'Password is required.',
-      v => (v && v.length >= 5) || 'Password must be at least 5 characters.',
+      v => !!v || 'Heslo je povinné.',
+      v => (v && v.length >= 10) || 'Heslo musí mať aspoň 10 znakov',
     ];
 
     const handleSubmit = async () => {

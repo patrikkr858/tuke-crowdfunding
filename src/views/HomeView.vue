@@ -3,19 +3,44 @@
     cycle
     height="600"
     hide-delimiter-background
-    :show-arrows="false"
-    v-reveal class="reveal"
+    v-reveal 
+    class="reveal"
+    show-arrows="hover"
   >
+    <template v-slot:prev="{ props }">
+      <v-btn
+        icon
+        color="white"
+        variant="tonal"
+        @click="props.onClick"
+        class="mr-5"
+      ><v-icon>mdi-arrow-left</v-icon></v-btn>
+    </template>
+    <template v-slot:next="{ props }">
+      <v-btn
+        icon
+        color="white"
+        variant="tonal"
+        @click="props.onClick"
+        class="ml-"
+      ><v-icon>mdi-arrow-right</v-icon></v-btn>
+    </template>
     <v-carousel-item
       v-for="(slide, i) in slides"
       :key="i"
       :src="slide.src"
       cover
     >
-      <div id="carousel-container" class="ma-15">
-        <h1 id="slide-title" class="mb-5"> {{ slide.title }} </h1>
-        <p id="slide-description"> {{ slide.description }} </p>
-      </div>
+    <v-row
+        class="fill-height"
+        align="center"
+        justify="start"
+      >
+        <v-col cols="12" class="carousel-content">
+          <h1 class="slide-title mb-5">{{ slide.title }}</h1>
+          <p class="slide-description">{{ slide.description }}</p>
+        </v-col>
+      </v-row>
     </v-carousel-item>
   </v-carousel>
 
@@ -64,7 +89,7 @@
       <h1 id="categories-box-title" class="text-center mx-5 mt-4">Prehľadávať podľa kategórie</h1>
     </div>
 
-    <v-container fluid class="mb-6">
+    <v-container class="mb-6">
       <v-row class="justify-center align-center mx-5"> 
         <v-col
           cols="12"
@@ -86,8 +111,8 @@
     </v-container>
   </div>
 
-  <v-container fluid v-reveal class="reveal mt-8">
-    <v-row class="mx-15">
+  <v-container v-reveal class="reveal mt-8">
+    <v-row class="mx-6 mx-sm-10">
       <v-col cols="12" lg="6">
         <h1 class="help-text text-center text-lg-start">Pomôž nám vybudovať projekty pre lepší život na Technickej Univerzite v Košiciach</h1>
       </v-col>
@@ -97,8 +122,8 @@
     </v-row>
   </v-container>
 
-  <v-container fluid v-reveal class="reveal mt-8">
-    <v-row class="mr-10">
+  <v-container v-reveal class="reveal mt-8">
+    <v-row class="mr-6">
       <v-col cols="12" md="6" lg="4" class="d-flex">
         <v-col class="d-flex justify-center align-center">
           <v-img max-width="80" src="@/assets/img/volunteer.png"></v-img>
@@ -133,9 +158,14 @@
 
 </template>
 
+<style scoped>
+
+</style>
+
 <script>
 import '@/assets/styles/home.css'
 import FooterComponent from '@/components/FooterComponent.vue'
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default {
   components: {
@@ -248,7 +278,7 @@ export default {
         function handleScroll() {
           var windowHeight = window.innerHeight;
           var elementTop = el.getBoundingClientRect().top;
-          var elementVisible = 150;
+          var elementVisible = 0;
 
           if (elementTop < windowHeight - elementVisible) {
             el.classList.add("active");
@@ -263,7 +293,16 @@ export default {
 
         el.__vueRevealCleanup__ = () => {
           window.removeEventListener("scroll", handleScroll);
-        };
+        }
+
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            console.log(user.displayName); 
+          } else {
+            console.log("User is not signed in");
+          }
+        })
       },
       unmounted(el) {
         el.__vueRevealCleanup__ && el.__vueRevealCleanup__();

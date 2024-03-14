@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue";
 import ProjectsView from "../views/ProjectsView.vue";
 import ProjectDetailView from "../views/ProjectDetailView.vue";
 import LoginView from "../views/LoginView.vue";
+import CreateProjectView from "../views/CreateProjectView.vue";
 import RegisterView from "../views/RegisterView.vue";
 
 import { getUserState } from '../firebase'
@@ -11,31 +12,32 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
-    meta: { requiresAuth: true }
+    component: HomeView
   },
   {
     path: "/projects",
     name: "projects",
-    component: ProjectsView,
-    meta: { requiresAuth: true }
+    component: ProjectsView
   },
   {
     path: "/detail",
     name: "projectdetail",
-    component: ProjectDetailView,
-    meta: { requiresAuth: true }
+    component: ProjectDetailView
   },
   {
     path: "/login",
     name: "login",
     component: LoginView,
-    meta: { requiresUnauth: true }
   },
   {
     path: "/register",
     name: "register",
     component: RegisterView,
+  },
+  {
+    path: "/create/project",
+    name: "createProject",
+    component: CreateProjectView,
     meta: { requiresUnauth: true }
   }
 ];

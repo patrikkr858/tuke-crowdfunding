@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid v-reveal class="reveal">
+    <v-container fluid>
         <v-row class="mx-15">
             <v-col 
                 cols="12" 
@@ -80,7 +80,7 @@
         </v-row>
     </v-container>
 
-    <FooterComponent v-reveal class="reveal mt-8"></FooterComponent>
+    <FooterComponent class="mt-8"></FooterComponent>
 </template>
 
 <style>
@@ -192,37 +192,9 @@ export default {
     },
     methods: {
         calculatePercentage(project) {
-        return (project.collected / project.goal) * 100;
+            return (project.collected / project.goal) * 100;
         },
-     },
-     directives: {
-        reveal: {
-        mounted(el) {
-            function handleScroll() {
-            var windowHeight = window.innerHeight;
-            var elementTop = el.getBoundingClientRect().top;
-            var elementVisible = 150;
-
-            if (elementTop < windowHeight - elementVisible) {
-                el.classList.add("active");
-            } else {
-                el.classList.remove("active");
-            }
-            }
-
-            window.addEventListener("scroll", handleScroll);
-
-            handleScroll();
-
-            el.__vueRevealCleanup__ = () => {
-            window.removeEventListener("scroll", handleScroll);
-            };
-        },
-        unmounted(el) {
-            el.__vueRevealCleanup__ && el.__vueRevealCleanup__();
-        }
-        }
-    }
+     }
 }
 
 </script>

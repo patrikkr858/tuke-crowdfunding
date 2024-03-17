@@ -2,6 +2,20 @@
     font-size: 45px;
 }
 
+
+.category-transparent{
+    border: 1px solid transparent;
+    border-radius: 25px;
+    padding: 10px 5px 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.categorys:hover{
+    border: 1px solid white;
+    border-radius: 25px;
+}
+
 .categories-box{
     background-color: #A29061;
     color: white;

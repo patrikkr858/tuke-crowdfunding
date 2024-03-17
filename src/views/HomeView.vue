@@ -55,7 +55,7 @@
           <v-card class="mr-15 mb-15" width="300" elevation="5">
             <v-img :src="project.src" class="mb-5" />
             <div class="d-flex justify-center align-center mb-5 mx-5" id="card-title">
-              <p>{{ project.title }}</p>
+              <p class="font-weight-bold">{{ project.title }}</p>
             </div>
             <div class="d-flex mx-2 mb-2" id="card-money">
               <v-progress-linear 
@@ -100,11 +100,11 @@
           :key="i"
           class="text-center py-3"
         >
-          <div class="mx-2 mb-2">
+          <div class="mx-2 mb-2 categorys category-transparent">
             <v-icon size="x-large" class="mb-2 mr-2">
               {{ category.icon }}
             </v-icon>
-            <router-link to="/" id="categories-box-category">{{ category.name }} ({{ category.count }})</router-link>
+            <router-link to="/" id="categories-box-category">{{ category.name }}</router-link>
           </div>
         </v-col>
       </v-row>
@@ -154,7 +154,7 @@
     </v-row>
   </v-container>
   
-  <FooterComponent v-reveal class="reveal mt-8"></FooterComponent>
+  <FooterComponent class="mt-8"></FooterComponent>
 
 </template>
 

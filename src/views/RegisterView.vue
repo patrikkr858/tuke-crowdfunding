@@ -1,5 +1,5 @@
 <template>
-  <v-container align="center" class="ma-auto">
+  <v-container align="center" class="ma-auto mt-10 mb-10">
     <v-card 
       class="mx-auto"
       elevation="0"

@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-center">
-        <v-card width="1400" elevation="0" v-reveal class="reveal mx-10">
+        <v-card width="1400" elevation="0" v-reveal class="reveal mx-10 mt-10">
             <h1 class="mb-5 project-title">Inovácie v pneumatických systémoch</h1>
             <v-row v-reveal class="reveal">
                 <v-col cols="12" md="8" lg="9">
@@ -35,7 +35,10 @@
                         <p class="ml-auto">do ukončenia</p>
                     </div>
                     <div class="d-flex justify-center align-center my-5">
-                        <v-btn class="button-primary" to="/detail">Podpor projekt</v-btn>
+                        <v-btn size="x-large" class="button-primary btn donate mt-2" to="/donate">Darovať</v-btn>
+                    </div>
+                    <div class="d-flex justify-center align-center my-5">
+                        <v-btn size="x-large" class="mt-2 btn share" to="/detail">Zdielať</v-btn>
                     </div>
                 </v-col>
             </v-row>
@@ -56,6 +59,7 @@
                     <p class="ml-3">26.9.2023</p>
                 </v-col>
             </v-row>
+            <hr class="lines my-5">
             <v-row v-reveal class="reveal">
                 <v-col>
                     <h1>V čom potrebujeme pomôcť a na čo budú peniaze použité?</h1>
@@ -80,10 +84,27 @@
     </div>
     
 
-    <FooterComponent v-reveal class="reveal mt-8"></FooterComponent>
+    <FooterComponent class="mt-8"></FooterComponent>
 </template>
 
 <style>
+.lines{
+    border-bottom: 1px solid rgba(255, 255, 255, 0.01)
+}
+
+.btn{
+    width: 200px;
+}
+
+.share{
+    background-color: white;
+    color: #A29061;
+}
+
+.donate .share{
+    font-weight: bold;
+}
+
 .underline{
     border-bottom: 2px solid #A29061;
 }
@@ -96,7 +117,7 @@
 
 .project-title{
     font-size: 35px;
-    font-weight: 500;
+    font-weight: bold;
 }
 
 .project-details h1{

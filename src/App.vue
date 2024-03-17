@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-toolbar color="white" class="ma-3">
+    <v-toolbar color="white">
       
       <v-toolbar-side-icon>
         <v-img class="mr-3" src="@/assets/img/tuke-logo.png" height="60px" width="60px"></v-img>
@@ -12,8 +12,9 @@
         <v-toolbar-items class="header-text d-flex align-center">
           <router-link to="/" class="mr-10">Domov</router-link>
           <router-link to="/projects" class="mr-10">Projekty</router-link>
-          <router-link to="/" class="mr-10">O nás</router-link>
+          <router-link to="/about" class="mr-10">O nás</router-link>
           <router-link v-show="loggedIn" to="/login">Prihlásenie</router-link>
+          <router-link to="/create/project" v-if="user">Vytvoriť projekt</router-link>
         </v-toolbar-items>
       </div>
 

@@ -45,7 +45,7 @@
   </v-carousel>
 
   <div v-reveal class="d-flex justify-center align-center ma-6 ma-sm-10 reveal">
-    <h1 class="section-title">Ako sa darí projektom na TUKE</h1>
+    <h1 class="section-title">testovackaAko sa darí projektom na TUKE</h1>
   </div>
 
   <div v-reveal class="reveal mb-5">

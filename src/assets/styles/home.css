@@ -2,20 +2,6 @@
     font-size: 45px;
 }
 
-
-.category-transparent{
-    border: 1px solid transparent;
-    border-radius: 25px;
-    padding: 10px 5px 5px;
-    cursor: pointer;
-    transition: .3s;
-}
-
-.categorys:hover{
-    border: 1px solid white;
-    border-radius: 25px;
-}
-
 .categories-box{
     background-color: #A29061;
     color: white;
@@ -25,12 +11,6 @@
     font-size: 45px;
 }
 
-#categories-box-category{
-    font-size: 25px;
-    font-weight: 400;
-    text-decoration: none;
-    color: white;
-}
 
 .reveal{
     position: relative;
@@ -89,6 +69,13 @@
     font-weight: 300;
 }
 
+.chipgroup{
+    width: 64%;
+}
+
+.chiplink{
+    color: white;
+}
 
 @media (max-width: 959px) {
     .carousel-content {
@@ -118,10 +105,6 @@
         font-size: 30px;
     }
 
-    #categories-box-category{
-        font-size: 20px;
-    }
-
     .help-text{
         font-size: 35px;
     }
@@ -139,4 +122,14 @@
     .help-text{
         font-size: 25px; 
     }
+}
+
+.jumping-icon{
+    transition: .5s;
+    cursor: pointer;
+    
+}
+
+.jumping-icon:hover{
+    transform: translateY(-15px);
 }

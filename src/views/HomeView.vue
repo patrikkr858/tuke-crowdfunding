@@ -45,7 +45,7 @@
   </v-carousel>
 
   <div v-reveal class="d-flex justify-center align-center ma-6 ma-sm-10 reveal">
-    <h1 class="section-title">testovackaAko sa darí projektom na TUKE</h1>
+    <h1 class="section-title">Ako sa darí projektom na TUKE</h1>
   </div>
 
   <div v-reveal class="reveal mb-5">
@@ -89,24 +89,22 @@
       <h1 id="categories-box-title" class="text-center mx-5 mt-4">Prehľadávať podľa kategórie</h1>
     </div>
 
-    <v-container class="mb-6">
-      <v-row class="justify-center align-center mx-5"> 
-        <v-col
-          cols="12"
-          sm="6"
-          md="4"
-          lg="3"
+    <v-container class="mb-6 chipgroup">
+      <v-row class="d-flex justify-center align-center mx-5"> 
+        <v-chip-group
           v-for="(category, i) in categories"
           :key="i"
-          class="text-center py-3"
+          class="mb-5"
         >
-          <div class="mx-2 mb-2 categorys category-transparent">
-            <v-icon size="x-large" class="mb-2 mr-2">
+          <router-link to="/projects" class="chiplink">
+          <v-chip>
+            <v-icon size="small" class="mr-2">
               {{ category.icon }}
             </v-icon>
-            <router-link to="/" id="categories-box-category">{{ category.name }}</router-link>
-          </div>
-        </v-col>
+            {{ category.name }}
+          </v-chip>
+          </router-link>
+        </v-chip-group>
       </v-row>
     </v-container>
   </div>
@@ -125,8 +123,8 @@
   <v-container v-reveal class="reveal mt-8">
     <v-row class="mr-6">
       <v-col cols="12" md="6" lg="4" class="d-flex">
-        <v-col class="d-flex justify-center align-center">
-          <v-img max-width="80" src="@/assets/img/volunteer.png"></v-img>
+        <v-col class="d-flex justify-center align-center jumping-icon">
+            <v-img max-width="80" src="@/assets/img/volunteer.png" @click="redirect('/projects')"></v-img>
         </v-col>
         <v-col>
           <h4>Staň sa dobrovoľníkom</h4>
@@ -134,8 +132,8 @@
         </v-col>
       </v-col>
       <v-col cols="12" md="6" lg="4" class="d-flex">
-        <v-col class="d-flex justify-center align-center">
-          <v-img max-width="80" src="@/assets/img/money.png"></v-img>
+        <v-col class="d-flex justify-center align-center jumping-icon">
+          <v-img max-width="80" src="@/assets/img/money.png" @click="redirect('/projects')"></v-img>
         </v-col>
         <v-col>
           <h4>Rýchla zbierka financií</h4>
@@ -143,8 +141,8 @@
         </v-col>
       </v-col>
       <v-col cols="12" md="6" lg="4" class="d-flex mx-auto">
-        <v-col class="d-flex justify-center align-center">
-          <v-img max-width="80" src="@/assets/img/present.png"></v-img>
+        <v-col class="d-flex justify-center align-center jumping-icon">
+          <v-img max-width="80" src="@/assets/img/present.png" @click="redirect('/projects')"></v-img>
         </v-col>
         <v-col>
           <h4>Začnite darovať</h4>
@@ -270,6 +268,9 @@ export default {
   methods: {
     calculatePercentage(project) {
       return (project.collected / project.goal) * 100;
+    },
+    redirect(path){
+      this.$router.push(path);
     },
   },
   directives: {

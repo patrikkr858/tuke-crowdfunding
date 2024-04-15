@@ -7,6 +7,7 @@ import CreateProjectView from "../views/CreateProjectView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import AboutUsView from "../views/AboutUsView.vue";
 import DonateProjectView from "../views/DonateProjectView.vue";
+import ProfileView from "../views/ProfileView.vue"
 
 import { getUserState } from '../firebase'
 
@@ -50,6 +51,12 @@ const routes = [
     path: "/donate",
     name: "donate",
     component: DonateProjectView
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: ProfileView,
+    requiresAuth: true
   }
 ];
 

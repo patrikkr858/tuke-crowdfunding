@@ -61,7 +61,7 @@
             v-model="password"
             :rules="passwordRules"
             label="Zadajte heslo"
-            hint="Heslo musí mať minimálne 10 znakov."
+            hint="Heslo musí mať minimálne 8 znakov."
             :type="show1 ? 'text' : 'password'"
             hide-details
             required
@@ -156,7 +156,7 @@ export default {
 
     const passwordRules = [
       v => !!v || 'Heslo je povinné.',
-      v => (v && v.length >= 10) || 'Heslo musí mať aspoň 10 znakov',
+      v => (v && v.length >= 8) || 'Heslo musí mať aspoň 8 znakov',
     ];
 
     const confirmPasswordRules = [

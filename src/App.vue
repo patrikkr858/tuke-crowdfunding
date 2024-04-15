@@ -3,11 +3,15 @@
     <v-toolbar color="white">
       
       <v-toolbar-side-icon>
-        <v-img class="mr-3" src="@/assets/img/tuke-logo.png" height="60px" width="60px"></v-img>
+        <router-link to="/">
+          <v-img class="mr-3" src="@/assets/img/tuke-logo.png" height="60px" width="60px"></v-img>
+        </router-link>
       </v-toolbar-side-icon>
 
-      <h3 id="logo-title">TUKE<br>CROWDFUNDING</h3>
-
+      <router-link to="/"  style="text-decoration: none;">
+        <h3 id="logo-title">TUKE<br>CROWDFUNDING</h3>
+      </router-link>
+      
       <div class="hidden-sm-and-down mx-auto">
         <v-toolbar-items class="header-text d-flex align-center">
           <router-link to="/" class="mr-10">Domov</router-link>
@@ -45,18 +49,21 @@
                     {{ user.email }}
                   </p>
                   <v-divider class="my-3"></v-divider>
-                  <v-btn
-                    variant="text"
-                    rounded
-                  >
-                    Môj profil
-                  </v-btn>
+                  <router-link to="/profile">
+                    <v-btn
+                      variant="text"
+                      rounded
+                      id="to-profile"
+                    >
+                      Môj profil
+                    </v-btn>
+                  </router-link>
                   <v-divider class="my-3"></v-divider>
                   <v-btn 
                     variant="text"
                     rounded 
+                    id="logout"
                     @click="signOutUser" 
-                    dark
                   >
                     Odhlásiť sa
                   </v-btn>
@@ -68,11 +75,9 @@
         
       </div>
 
-      <div class="ml-auto mr-11 hidden-md-and-up" id="logo-title">
+      <div class="ml-auto hidden-md-and-up mr-3" id="logo-title">
         <v-row justify="center">
           <v-menu
-            width="100vw"
-            height="100vh"
             class="pt-2 mt-2"
             rounded
           >
@@ -86,37 +91,69 @@
             </template>
             <v-card>
               <v-card-text>
-                <div class="mx-auto text-center">
-                  <h3>{{ user.displayName }}</h3>
-                  <p class="text-caption mt-1">
-                    {{ user.email }}
-                  </p>
+                <div class="mx-auto text-center menu">
+                  <v-btn
+                    rounded
+                    to="/"
+                    id="to-profile"
+                    variant="plain"
+                  >
+                    Domov
+                  </v-btn>
                   <v-divider class="my-3"></v-divider>
                   <v-btn
-                    variant="text"
+                    variant="plain"
                     rounded
+                    to="/projects"
+                    id="to-profile"
                   >
-                    Môj profil
+                    Projekty
                   </v-btn>
                   <v-divider class="my-3"></v-divider>
-                  <v-btn 
-                    variant="text"
-                    rounded 
-                    @click="signOutUser" 
-                    dark
+                  <v-btn
+                    variant="plain"
+                    rounded
+                    to="/about"
+                    id="to-profile"
                   >
-                    Odhlásiť sa
+                    O nás
                   </v-btn>
+                  <v-divider class="my-3"></v-divider>
+                  <div v-if="user">
+                    <router-link to="/profile" id="to-profile">
+                      <h3 class="text-start">{{ user.displayName }}</h3>
+                      <p class="text-caption mt-1">
+                        {{ user.email }}
+                      </p>
+                    </router-link>
+                    <v-divider class="my-3"></v-divider>
+                    <v-btn 
+                      variant="text"
+                      rounded 
+                      id="logout"
+                      @click="signOutUser" 
+                      dark
+                    >
+                      Odhlásiť sa
+                    </v-btn>
+                  </div>
+                  <div v-if="user===null">
+                    <v-btn 
+                      variant="plain"
+                      rounded 
+                      to="/login"
+                      id="to-profile"
+                    >
+                      Prihlásenie
+                    </v-btn>
+                  </div>
+                  
                 </div>
               </v-card-text>
             </v-card>
           </v-menu>
         </v-row>
-
-        
-        
       </div>
-      
     </v-toolbar>
   </v-container>
 

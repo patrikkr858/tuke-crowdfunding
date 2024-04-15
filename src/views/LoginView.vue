@@ -26,7 +26,6 @@
           <div class="text-subtitle-1 text-medium-emphasis d-flex align-center justify-space-between">Heslo</div>
           <v-text-field
             v-model="password"
-            :rules="passwordRules"
             label="Zadajte heslo"
             hint="At least 5 characters"
             :type="show1 ? 'text' : 'password'"

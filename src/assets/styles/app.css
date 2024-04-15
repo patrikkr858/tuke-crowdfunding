@@ -44,3 +44,24 @@ header{
 .header-text a:hover{
   color: #A29061;
 }
+
+#to-profile{
+  color: black !important;
+  opacity: 100%;
+  text-decoration: none;
+  transition: .2s;
+}
+
+#to-profile:hover{
+  color: #A29061 !important;
+}
+
+#logout{
+  color:#A29061;
+  font-weight: bold;
+  transition: .3s;
+}
+
+#logout:hover{
+  color:#86764e;
+}

@@ -90,7 +90,7 @@
             </v-row>
 
             <v-row class="d-flex justify-center align-center mt-10">
-                <v-btn size="x-large" class="create-project mb-10">Vytvoriť projekt</v-btn>
+                <v-btn to="/create/project" size="x-large" class="create-project mb-10">Vytvoriť projekt</v-btn>
             </v-row>
         </div>
     </v-container>

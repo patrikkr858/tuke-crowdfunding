@@ -9,12 +9,12 @@
                 <h1>Inovácie v pneumatických systémoch</h1>
             </v-row>
 
-            <v-row justify="center" class="mb-5">
+            <v-row justify="center" class="mb-5 mx-5">
                 <v-img src="@/assets/img/projekt-22.png"></v-img>
             </v-row>
 
         
-            <v-form>
+            <v-form class="mx-5">
 
             <div class="text-subtitle-1 d-flex align-center justify-space-between">1. Vyberte sumu príspevku</div>
             <v-radio-group class="select-group">

@@ -3,7 +3,8 @@
         <v-row class="mx-15 mt-5">
             <v-col 
                 cols="12" 
-                md="3" 
+                md="4" 
+                lg="3"
                 class="hidden-sm-and-down pr-5"
             >
                 <v-row class="mb-5"><h2 class="category-title">K A T E G Ó R I E</h2></v-row>
@@ -32,7 +33,7 @@
                 </v-row>
             </v-col>
 
-            <v-col cols="12" md="9">
+            <v-col cols="12" md="8" lg="9">
                 
                     <v-row class="mb-5">
                         <h1>Všetky prebiehajúce projekty</h1>
@@ -42,7 +43,7 @@
                             cols="12"
                             sm="6"
                             md="6"
-                            lg="3"
+                            lg="4"
                             v-for="(project,i) in projects"
                             :key="i"
                         >
@@ -50,8 +51,8 @@
                                 elevation="5" 
                                 to="/detail"
                             >
-                                <v-img :src="project.src" class="mb-5"/>
-                                <div class="d-flex justify-center align-center mb-5 mx-5" id="card-title">
+                                <v-img :src="project.src" class="mb-3"/>
+                                <div class="d-flex justify-center align-center mx-5 mb-3" id="card-title">
                                     <p class="font-weight-bold">{{ project.title }}</p>
                                 </div>
                                 <div class="d-flex mx-2 mb-2" id="card-money">
@@ -95,6 +96,10 @@
 .category:hover{
     cursor: pointer;
     color: #A29061;
+}
+
+#card-title{
+    min-height: 50px;
 }
 </style>
 

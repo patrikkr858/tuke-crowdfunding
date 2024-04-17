@@ -9,7 +9,7 @@
       </v-toolbar-side-icon>
 
       <router-link to="/"  style="text-decoration: none;">
-        <h3 id="logo-title">TUKE<br>CROWDFUNDING</h3>
+        <h3 style="color: #A29061;">TUKE<br>CROWDFUNDING</h3>
       </router-link>
       
       <div class="hidden-sm-and-down mx-auto">
